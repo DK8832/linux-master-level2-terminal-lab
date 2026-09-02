@@ -32,9 +32,13 @@ GitHub Actions의 `ubuntu-latest`에서 `scripts/lab.sh`를 실행하고 로그�
 - 체크 수 `CHECKS_PASSED=8`
 - 최종 상태 `LAB_STATUS=PASS`
 
+2026년 9월 3일 GitHub Actions run 33694870725를 Ubuntu 24.04.4 LTS에서 실행했다. Bash 문법 검사, 여섯 실습, Python 검증기, 로그 업로드 단계가 모두 성공했고 `CHECKS_PASSED=8`, `LAB_STATUS=PASS`, `verification passed: 8 markers`를 확인했다.
+
 ## 5. 문제 해결
 
-프로세스 목록을 `head`와 연결하면 `pipefail` 환경에서 앞 명령이 SIGPIPE로 종료될 수 있다. 전체 실습이 이 표시용 파이프 때문에 실패하지 않도록 해당 한 줄에만 `|| true`를 적용하고, 실제 평가 항목은 별도의 명시적인 `check` 함수로 검사했다.
+첫 자동 실행은 겉으로 성공했지만 로그 끝에 `$'\\r': command not found`가 있었다. PowerShell 출력 뒤에 붙은 CR이 Bash 파일 끝에 들어간 것이 원인이었다. 파일을 LF로 다시 올리고 GitHub Actions의 실행 파이프에도 `set -o pipefail`을 추가해 Bash 오류가 `tee` 뒤에 숨지 않게 했다. 수정 후 run 33694870725에서 오류 없이 다시 통과했다.
+
+또한 프로세스 목록을 `head`와 연결하면 `pipefail` 환경에서 앞 명령이 SIGPIPE로 종료될 수 있다. 전체 실습이 이 표시용 파이프 때문에 실패하지 않도록 해당 한 줄에만 `|| true`를 적용하고, 실제 평가 항목은 별도의 명시적인 `check` 함수로 검사했다.
 
 파일 권한은 `ls -l`의 문자 모양만 보는 대신 `stat -c '%a'`로 755를 숫자로 추출하고 `test -x`로 실행 가능 상태를 한 번 더 검사했다. 텍스트 처리도 화면에 보이는 행을 세는 대신 결과 파일과 파이프의 행 수를 비교했다.
 
@@ -49,5 +53,3 @@ GitHub Actions의 `ubuntu-latest`에서 `scripts/lab.sh`를 실행하고 로그�
 ## 8. AI 활용 범위
 
 실습 영역을 구조화하고 Bash 스크립트, Python 로그 검증기, GitHub Actions, 웹 노트, 문서 초안을 만드는 데 Codex를 활용했다. 명령이 실제로 성공했다고 AI가 추정하지 않도록 Ubuntu 워크플로의 실행 로그와 8개 검증 표식으로 확인하도록 설계했다.
-
-
