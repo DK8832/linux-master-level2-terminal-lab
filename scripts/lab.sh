@@ -86,5 +86,3 @@ else
   printf 'LAB_STATUS=FAIL\n' >&2
   exit 1
 fi
-
-
