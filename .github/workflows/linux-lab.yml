@@ -17,6 +17,7 @@ jobs:
         run: bash -n scripts/lab.sh
       - name: Run six terminal labs
         run: |
+          set -o pipefail
           mkdir -p artifacts
           bash scripts/lab.sh | tee artifacts/latest-terminal-output.txt
       - name: Verify eight output markers
@@ -26,5 +27,3 @@ jobs:
         with:
           name: linux-terminal-lab-output
           path: artifacts/latest-terminal-output.txt
-
-
