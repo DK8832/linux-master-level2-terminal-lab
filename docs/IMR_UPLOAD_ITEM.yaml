@@ -1,0 +1,18 @@
+IMR_UPLOAD_ITEM:
+  title: "리눅스마스터 2급 2차 대비 터미널 실습 기록"
+  description: "파일·권한·grep 파이프라인·tar 압축·프로세스·시스템 명령을 Ubuntu에서 직접 실행하고, 임시 작업공간·8개 자동 체크·GitHub Actions 로그로 재현성을 검증한 실습 기록."
+  type: "Editor"
+  group: "프로그래밍"
+  visibility: "공개"
+  body_html: "docs/IMR_BODY.html"
+  thumbnail_path: "output/LinuxMaster_terminal_thumbnail.png"
+  attachments:
+    - "output/linux-master-level2-terminal-lab.zip"
+    - "output/LinuxMaster2_터미널실습_포트폴리오.pdf"
+  prohibited_claims:
+    - "합격"
+    - "점수 향상"
+    - "공식 기출"
+    - "관리자 권한 실습 완료"
+
+
