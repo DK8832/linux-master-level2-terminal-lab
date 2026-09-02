@@ -1,0 +1,52 @@
+=== LAB 01: ENVIRONMENT ===
+PWD=/tmp/tmp.B3OlD6tSCM
+USER_ID=1001
+KERNEL=Linux
+CHECK PASS | kernel is Linux
+
+=== LAB 02: FILES ===
+archive/b.txt
+inbox/a-copy.txt
+inbox/a.txt
+CHECK PASS | moved file exists
+CHECK PASS | source file was moved
+
+=== LAB 03: PERMISSIONS ===
+MODE=755
+permission-ok
+CHECK PASS | script mode is 755
+CHECK PASS | script is executable
+
+=== LAB 04: TEXT PIPELINE ===
+ERROR user=jiyeol action=read
+ERROR user=seo action=write
+ERROR_COUNT=2
+UNIQUE_USERS=3
+CHECK PASS | two error lines
+CHECK PASS | three unique users
+
+=== LAB 05: ARCHIVE ===
+ARCHIVE_CONTENTS
+app.log
+errors.log
+ARCHIVE_SHA256=eb642b6f657b9e5a8ceab71cab3e478e95925b85b0843a7d3d61f65bfb1295f8
+CHECK PASS | archive is not empty
+
+=== LAB 06: PROCESS AND SYSTEM ===
+PROCESS_SAMPLE
+    PID COMMAND
+      1 systemd
+      2 kthreadd
+      3 pool_workqueue_release
+      4 kworker/R-rcu_gp
+      5 kworker/R-sync_wq
+DISK_ROOT
+/dev/root       145G   59G   87G  41% /
+MEMORY
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       1.4Gi        12Gi        40Mi       2.4Gi        14Gi
+UPTIME
+ 23:23:41 up 0 min,  0 user,  load average: 0.44, 0.10, 0.03
+
+CHECKS_PASSED=8
+LAB_STATUS=PASS
