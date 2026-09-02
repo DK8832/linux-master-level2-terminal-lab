@@ -1,0 +1,30 @@
+name: Linux terminal lab
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  terminal-lab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Bash syntax
+        run: bash -n scripts/lab.sh
+      - name: Run six terminal labs
+        run: |
+          mkdir -p artifacts
+          bash scripts/lab.sh | tee artifacts/latest-terminal-output.txt
+      - name: Verify eight output markers
+        run: python3 src/verify_output.py artifacts/latest-terminal-output.txt
+      - name: Upload reproducible terminal log
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-terminal-lab-output
+          path: artifacts/latest-terminal-output.txt
+
+
